@@ -108,6 +108,23 @@
             }
             cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
         });
+
+        cube.addEventListener("touchstart", function (event) {
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+            document.addEventListener("touchmove", move);
+            document.addEventListener("touchend", function () {
+                document.removeEventListener("touchmove", move);
+            });
+
+            function move(event) {
+                const touchEndX = event.touches[0].clientX;
+                const touchEndY = event.touches[0].clientY;
+                x += (touchEndY - touchStartY) / 5;
+                y += (touchEndX - touchStartX) / 5;
+                cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+            }
+        });
     </script>
 </body>
 
